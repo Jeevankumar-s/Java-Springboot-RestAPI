@@ -1,4 +1,6 @@
 package com.example.RESTAPI;
+import com.example.RESTAPI.models.Todo;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 //springboot have three layer
@@ -9,9 +11,6 @@ import org.springframework.stereotype.Component;
 
 // used to chat with db
 //Component mean TodoRepository will be managed by spring
-@Component
-public class TodoRepository {
-    String getAllTodos(){
-        return "Todos";
-    }
+public interface TodoRepository extends JpaRepository<Todo, Long> {
+
 }

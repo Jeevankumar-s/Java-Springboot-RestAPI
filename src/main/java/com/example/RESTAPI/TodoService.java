@@ -1,4 +1,5 @@
 package com.example.RESTAPI;
+import com.example.RESTAPI.models.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,12 @@ public class TodoService {
 //    Autowire
     @Autowired
     private TodoRepository todoRepository;
-    public void getTodo(){
-        System.out.println(todoRepository.getAllTodos());
+
+    public Todo createTodo(Todo todo){
+        return todoRepository.save(todo);
+    }
+
+    public Todo getTodoById(Long id){
+        return todoRepository.findById(id).orElseThrow(()-> new RuntimeException("Todo not found: " + id));
     }
 }
