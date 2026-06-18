@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 //Autowired - is used to automatic initialize (only with bean type parent managed by spring)
 @RestController
@@ -15,12 +17,13 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @GetMapping("/all-todos")
-    String getTodo() {
-        return "Todos";
+    //    GET All todo
+    @GetMapping("")
+    ResponseEntity<List<Todo>> getAllTodo() {
+        return new ResponseEntity<List<Todo>>(todoService.getAllTodos(), HttpStatus.OK);
     }
 
-    //  path variable
+    //  GET single todo by ID
     @GetMapping("/{id}")
     ResponseEntity<?> getTodoById(@PathVariable Long id) {
         try {
@@ -31,12 +34,6 @@ public class TodoController {
         }
     }
 
-    //  Request Param
-    @GetMapping("")
-    String getSingleTodoWithParam(@RequestParam("todoID") int id) {
-        return "Todos with id " + id;
-    }
-
     //    Create Todo
     @PostMapping("/create")
     ResponseEntity<?> createTodo(@RequestBody Todo todo) {
@@ -45,6 +42,22 @@ public class TodoController {
             return new ResponseEntity<>(createTodo, HttpStatus.CREATED);
         } catch (RuntimeException exception) {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("")
+    ResponseEntity<Todo> updateTodoById(@RequestBody Todo todo) {
+        return new ResponseEntity<>(todoService.updateTodo(todo), HttpStatus.OK);
+    }
+
+    //    Delete Todo by ID
+    @DeleteMapping("/{id}")
+    String deleteTodoByID(@PathVariable Long id) {
+        try {
+            todoService.deleteTodoById(id);
+            return "Todo Deleted Successfullt" + id;
+        } catch (RuntimeException exceptione) {
+            return "Unable to delete Todo";
         }
     }
 }

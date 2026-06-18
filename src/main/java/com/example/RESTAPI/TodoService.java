@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
+import java.util.List;
+
 
 //Dependency - means class are required to get TodoService worked here TodoRepository is required to run the TodoService
 //Inversion of controller means giving the dependency access to spring instead of doing manually Create and manage all the objects
@@ -22,5 +25,17 @@ public class TodoService {
 
     public Todo getTodoById(Long id){
         return todoRepository.findById(id).orElseThrow(()-> new RuntimeException("Todo not found: " + id));
+    }
+
+    public List<Todo> getAllTodos(){
+        return todoRepository.findAll();
+    }
+
+    public Todo updateTodo(Todo todo){
+        return todoRepository.save(todo);
+    }
+
+    public void deleteTodoById(Long id){
+            todoRepository.deleteById(id);
     }
 }
