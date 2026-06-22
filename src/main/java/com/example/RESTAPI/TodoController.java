@@ -1,6 +1,7 @@
 package com.example.RESTAPI;
 
 import com.example.RESTAPI.models.Todo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 //Autowired - is used to automatic initialize (only with bean type parent managed by spring)
 @RestController
 @RequestMapping("/todos")
+@Slf4j
 public class TodoController {
     @Autowired
     private TodoService todoService;
@@ -37,6 +39,7 @@ public class TodoController {
             Todo todo = todoService.getTodoById(id);
             return new ResponseEntity<>(todo, HttpStatus.OK);
         } catch (RuntimeException exception) {
+            log.error("Todo not found", exception);
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
@@ -48,6 +51,7 @@ public class TodoController {
             Todo createTodo = todoService.createTodo(todo);
             return new ResponseEntity<>(createTodo, HttpStatus.CREATED);
         } catch (RuntimeException exception) {
+            log.error("Unable to create Todo", exception);
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
@@ -63,8 +67,9 @@ public class TodoController {
         try {
             todoService.deleteTodoById(id);
             return "Todo Deleted Successfullt" + id;
-        } catch (RuntimeException exceptione) {
-            return "Unable to delete Todo" + exceptione;
+        } catch (RuntimeException exception) {
+            log.error("Unable to delete Todo", exception);
+            return "Unable to delete Todo" + exception;
         }
     }
 }
