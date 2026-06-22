@@ -1,6 +1,8 @@
 package com.example.RESTAPI;
 
 import com.example.RESTAPI.models.Todo;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,17 @@ public class TodoController {
         return new ResponseEntity<List<Todo>>(todoService.getAllTodos(), HttpStatus.OK);
     }
 
-//    GET All todo based on pagination
+    //    GET All todo based on pagination
     @GetMapping("/page")
-    ResponseEntity<Page<Todo>> getAllTodoByPagination(@RequestParam int page, @RequestParam int size){
+    ResponseEntity<Page<Todo>> getAllTodoByPagination(@RequestParam int page, @RequestParam int size) {
         return new ResponseEntity<Page<Todo>>(todoService.getAllTodoPaginated(page, size), HttpStatus.OK);
     }
 
     //  GET single todo by ID
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Todo fetched successfully"),
+            @ApiResponse(responseCode = "404", description = "Todo not found")
+    })
     @GetMapping("/{id}")
     ResponseEntity<?> getTodoById(@PathVariable Long id) {
         try {

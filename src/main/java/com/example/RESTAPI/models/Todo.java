@@ -1,6 +1,7 @@
 package com.example.RESTAPI.models;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,15 +24,12 @@ public class Todo {
     @Id
     @GeneratedValue
     Long id;
+    @Schema(name="complete todo", description = "learn spring boot")
     @NotBlank
-    @NonNull
     @Size(min=2, max=15)
     String title;
     @NotBlank
-    @NonNull
     @Size(min=5, max=20)
     String description;
     Boolean isCompleted;
-    @Email
-    String email;
 }
