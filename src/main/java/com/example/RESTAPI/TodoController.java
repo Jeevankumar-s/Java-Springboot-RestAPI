@@ -57,7 +57,7 @@ public class TodoController {
             todoService.deleteTodoById(id);
             return "Todo Deleted Successfullt" + id;
         } catch (RuntimeException exceptione) {
-            return "Unable to delete Todo";
+            return "Unable to delete Todo" + exceptione;
         }
     }
 }
