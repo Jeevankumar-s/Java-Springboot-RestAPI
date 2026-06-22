@@ -1,6 +1,7 @@
 package com.example.RESTAPI;
 
 import com.example.RESTAPI.models.Todo;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -21,6 +22,12 @@ public class TodoController {
     @GetMapping("")
     ResponseEntity<List<Todo>> getAllTodo() {
         return new ResponseEntity<List<Todo>>(todoService.getAllTodos(), HttpStatus.OK);
+    }
+
+//    GET All todo based on pagination
+    @GetMapping("/page")
+    ResponseEntity<Page<Todo>> getAllTodoByPagination(@RequestParam int page, @RequestParam int size){
+        return new ResponseEntity<Page<Todo>>(todoService.getAllTodoPaginated(page, size), HttpStatus.OK);
     }
 
     //  GET single todo by ID
