@@ -1,7 +1,6 @@
-package com.example.RESTAPI;
+package com.example.RESTAPI.repository;
 import com.example.RESTAPI.models.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Component;
 
 //springboot have three layer
 //        1. Presentation Layer TodoController (manage, data return to ui, endpoint)

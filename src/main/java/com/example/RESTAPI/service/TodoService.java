@@ -1,13 +1,12 @@
-package com.example.RESTAPI;
+package com.example.RESTAPI.service;
 import com.example.RESTAPI.models.Todo;
+import com.example.RESTAPI.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 
